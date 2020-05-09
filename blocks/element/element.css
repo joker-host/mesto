@@ -1,0 +1,9 @@
+@import url(./__capture/element__capture.css);
+@import url(./__photo/element__photo.css);
+@import url(./__like/element__like.css);
+@import url(./__capture-container/element__capture-container.css);
+
+.element {
+    width: 282px;
+    height: 361px;
+}

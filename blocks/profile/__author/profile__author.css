@@ -1,0 +1,23 @@
+.profile__author {
+    margin: 0;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 56px;
+    margin-bottom: 16px;
+    margin-right: 17px;
+}
+
+@media (max-width: 768px) {
+    .profile__author {
+        font-weight: 500;
+        font-size: 27px;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile__author {
+        margin-bottom: 14px;
+        margin-right: 5px;
+    }
+}

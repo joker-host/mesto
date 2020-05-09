@@ -1,0 +1,15 @@
+@import url(./__capture/footer__capture.css);
+
+.footer {
+    max-width: 1000px;
+    margin: auto;
+    padding-bottom: 60px;
+    padding-left: 19px;
+    padding-right: 19px;
+}
+
+@media (max-width: 600px) {
+    .footer {
+        padding-bottom: 36px;
+    }
+}

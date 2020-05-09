@@ -1,0 +1,23 @@
+.popup__container {
+    position: sticky;
+    top: 25%;
+    width: 430px;
+    height: 330px;
+    background-color: #FFFFFF;
+    margin-top: 195px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 34px 36px 36px 36px;
+}
+
+@media (max-width: 640px) {
+    .popup__container {
+        width: 350px;
+    }
+}
+
+@media (max-width: 430px) {
+    .popup__container {
+        width: 260px;
+    }
+}

@@ -12,4 +12,4 @@
 * Java-script
 
 ## Ссылка на проект
-https://joker-host.github.io/russian-travel/index.html
+https://joker-host.github.io/mesto/index.html

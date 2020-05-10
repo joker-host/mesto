@@ -7,20 +7,23 @@ const job = document.querySelector('.profile__description');
 const nameInput = document.querySelector('#name-input');
 const jobInput = document.querySelector('#job-input');
 // Создаем функцию, которая добавляет/удаляет класс у элемента
-function switchClass() {
-    popup.classList.toggle('popup_opened');
-    name.textContent = nameInput.value;
-    job.textContent = jobInput.value;
+function addClass() {
+    popup.classList.add('popup_opened');
+}
+function removeClass() {
+    popup.classList.remove('popup_opened');
 }
 // Добавляем реакцию на клик по кнопке открытия редактирования сведений о пользователе
-popupOpenButton.addEventListener('click', switchClass);
-closeButton.addEventListener('click', switchClass);
+popupOpenButton.addEventListener('click', addClass);
+closeButton.addEventListener('click', removeClass);
 const form = document.querySelector('.popup__form');
 function formSubmitHandler (evt) {
     // evt.preventDefault - отменяет стандартную отправку формы и мы можем задать свою логику для нее
     evt.preventDefault();
+    name.textContent = nameInput.value;
+    job.textContent = jobInput.value;
     // Закрываем окно
-    switchClass();
+    removeClass();
 }
 // обработчик для формы, который следит за событием submit
 form.addEventListener('submit', formSubmitHandler);

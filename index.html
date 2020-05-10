@@ -9,72 +9,73 @@
 <body>
     <div class="page">
         <header class="header">
-            <img src="./images/logo.svg" alt="" class="header__logo">
+            <img src="./images/logo.svg" alt="здесь должен быть логотип :)" class="header__logo">
+            <div class="header__line"></div>
         </header>
         <div class="popup">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form action="post" class="popup__form">
-                    <input type="text" name="name" class="popup__form-input" value="Жак-Ив Кусто" required id="nameInput" maxlength="25">
-                    <input type="text" name="about" class="popup__form-input" value="Исследователь океана" required id="jobInput" maxlength="50">
+                <form action="#" method="POST" name="form" class="popup__form">
+                    <input type="text" name="name" class="popup__form-input" value="Жак-Ив Кусто" required id="name-input" maxlength="25" placeholder="Имя">
+                    <input type="text" name="about" class="popup__form-input" value="Исследователь океана" required id="job-input" maxlength="50" placeholder="Род деятельности">
                     <button type="submit" class="popup__save-button">Сохранить</button>
                 </form>
-                <img src="./images/close.svg" alt="" class="popup__close-icon">
+                <button class="popup__close-icon"></button>
             </div>
         </div>
         <main class="content">
             <section class="profile">
-                <img src="./images/avatar.png" alt="" class="profile__avatar">
+                <img src="./images/avatar.png" alt="здесь должна быть аватарка :)" class="profile__avatar">
                 <div class="profile__info">
                     <div class="profile__container">
                         <h2 class="profile__author">Жак-Ив Кусто</h2>
-                        <button class="profile__edit-button"></button>
+                        <button type="button" class="profile__edit-button"></button>
                     </div>
                     <p class="profile__description">Исследователь океана</p>
                 </div>
-                <button class="add-button"></button>
+                <button type="button" class="profile__add-button"></button>
             </section>
             <section class="elements">
                 <div class="element">
-                    <img src="./images/karachaevsk.png" alt="" class="element__photo">
+                    <img src="./images/karachaevsk.png" alt="Фотография места" class="element__photo">
                     <div class="element__capture-container">
                         <p class="element__capture">Карачаевск</p>
-                        <img src="./images/like.svg" alt="" class="element__like">
+                        <button type="button" class="element__like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img src="./images/elbrus.png" alt="" class="element__photo">
+                    <img src="./images/elbrus.png" alt="Фотография места" class="element__photo">
                     <div class="element__capture-container">
                         <p class="element__capture">Гора Эльбрус</p>
-                        <img src="./images/like.svg" alt="" class="element__like">
+                        <button type="button" class="element__like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img src="./images/dombay.png" alt="" class="element__photo">
+                    <img src="./images/dombay.png" alt="Фотография места" class="element__photo">
                     <div class="element__capture-container">
                         <p class="element__capture">Домбай</p>
-                        <img src="./images/like.svg" alt="" class="element__like">
+                        <button type="button" class="element__like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img src="./images/elbrus.png" alt="" class="element__photo">
+                    <img src="./images/elbrus.png" alt="Фотография места" class="element__photo">
                     <div class="element__capture-container">
                         <p class="element__capture">Гора Эльбрус</p>
-                        <img src="./images/like.svg" alt="" class="element__like">
+                        <button type="button" class="element__like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img src="./images/dombay.png" alt="" class="element__photo">
+                    <img src="./images/dombay.png" alt="Фотография места" class="element__photo">
                     <div class="element__capture-container">
                         <p class="element__capture">Домбай</p>
-                        <img src="./images/like.svg" alt="" class="element__like">
+                        <button type="button" class="element__like"></button>
                     </div>
                 </div>
                 <div class="element">
-                    <img src="./images/karachaevsk.png" alt="" class="element__photo">
+                    <img src="./images/karachaevsk.png" alt="Фотография места" class="element__photo">
                     <div class="element__capture-container">
                         <p class="element__capture">Карачаево-Ч...</p>
-                        <img src="./images/like.svg" alt="" class="element__like">
+                        <button type="button" class="element__like"></button>
                     </div>
                 </div>
             </section>
@@ -83,6 +84,6 @@
             <p class="footer__capture">&copy; 2020 Mesto Russia</p>
         </footer>
     </div>
-<script src="./script.js"></script>
+<script src="./script/script.js"></script>
 </body>
 </html>

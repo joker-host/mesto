@@ -4,9 +4,10 @@
 @import url(./__author/profile__author.css);
 @import url(./__description/profile__description.css);
 @import url(./__container/profile__container.css);
+@import url(./__add-button/profile__add-button.css);
 
 .profile {
-    max-width: 1000px;
+    max-width: 882px;
     margin: auto;
     display: flex;
     align-items: center;

@@ -1,17 +1,17 @@
 @import url(./__logo/header__logo.css);
+@import url(./__line/header__line.css);
 
 .header {
-    max-width: 1000px;
-    min-height: 74px;
-    border-bottom: 1px solid #545454;
+    max-width: 936px;
     margin: auto;
-    position: relative;
     box-sizing: border-box;
+    padding: 45px 27px 41px 27px;
     margin-bottom: 40px;
 }
 
 @media (max-width: 400px) {
-    .header__logo {
-        min-height: 56px;
+    .header {
+        padding-top: 28px;
+        padding-bottom: 32px;
     }
 }

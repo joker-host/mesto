@@ -9,6 +9,8 @@ const jobInput = document.querySelector('#job-input');
 // Создаем функцию, которая добавляет/удаляет класс у элемента
 function addClass() {
     popup.classList.add('popup_opened');
+    nameInput.value = name.textContent;
+    jobInput.value = job.textContent;
 }
 function removeClass() {
     popup.classList.remove('popup_opened');

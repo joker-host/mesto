@@ -12,11 +12,9 @@
     display: flex;
     align-items: center;
     margin-bottom: 50px;
-    padding-right: 19px;
-    padding-left: 19px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .profile {
         flex-direction: column;
     }

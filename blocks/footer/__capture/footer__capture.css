@@ -6,6 +6,12 @@
     margin: 0;
 }
 
+@media (max-width: 420px) {
+    .footer__capture {
+        margin-left: 19px;
+    }
+}
+
 @media (max-width: 320px) {
     .footer__capture {
         font-size: 14px;

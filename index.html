@@ -6,83 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
 </head>
-<body>
-    <div class="page">
-        <header class="header">
-            <img src="./images/logo.svg" alt="здесь должен быть логотип :)" class="header__logo">
-        </header>
-        <div class="popup">
-            <div class="popup__container">
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <form action="#" method="POST" name="form" class="popup__form">
-                    <input type="text" name="name" class="popup__form-input" value="Жак-Ив Кусто" required id="name-input" maxlength="25" placeholder="Имя">
-                    <input type="text" name="about" class="popup__form-input" value="Исследователь океана" required id="job-input" maxlength="50" placeholder="Род деятельности">
-                    <button type="submit" class="popup__save-button">Сохранить</button>
-                </form>
-                <button type="button" class="popup__close-icon"></button>
+<body class="body">
+
+        <div class="page">
+            <header class="header">
+                <img src="./images/logo.svg" alt="здесь должен быть логотип :)" class="header__logo">
+            </header>
+
+            <div class="popup popup_type_profile">
+                <div class="popup__container">
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <form action="#" method="POST" name="form" class="popup__form popup__form_profile">
+                        <input type="text" name="name" class="popup__form-input" value="Жак-Ив Кусто" required id="name-input" placeholder="Имя">
+                        <input type="text" name="about" class="popup__form-input" value="Исследователь океана" required id="job-input" placeholder="Род деятельности">
+                        <button type="submit" class="popup__save-button">Сохранить</button>
+                    </form>
+                    <button type="button" class="popup__close-icon popup__close-icon_profile"></button>
+                </div>
             </div>
-        </div>
-        <main class="content">
-            <section class="profile">
-                <img src="./images/avatar.png" alt="здесь должна быть аватарка :)" class="profile__avatar">
-                <div class="profile__info">
-                    <div class="profile__container">
+            <div class="popup popup_type_card">
+                <div class="popup__container">
+                    <h2 class="popup__title">Новое место</h2>
+                    <form action="#" method="POST" name="form" class="popup__form popup__form_card">
+                        <input type="text" name="title" class="popup__form-input" value="" required id="title-input" placeholder="Название">
+                        <input type="text" name="link" class="popup__form-input" value="" required id="link-input" placeholder="Ссылка на картинку">
+                        <button type="submit" class="popup__save-button">Создать</button>
+                    </form>
+                    <button type="button" class="popup__close-icon popup__close-icon_card"></button>
+                </div>
+            </div>
+            <div class="popup popup_type_image">
+                <div class="popup__container-image">
+                    <img src="" alt="здесь должна быть увеличенная картинка" class="popup__image">
+                    <p class="popup__capture"></p>
+                    <button type="button" class="popup__close-icon popup__close-icon_image"></button>
+                </div>
+            </div>
+        
+            <main class="content">
+                <section class="profile">
+                    <img src="./images/avatar.png" alt="здесь должна быть аватарка :)" class="profile__avatar">
+                    <div class="profile__info">
                         <h2 class="profile__author">Жак-Ив Кусто</h2>
                         <button type="button" class="profile__edit-button"></button>
+                        <p class="profile__description">Исследователь океана</p>
                     </div>
-                    <p class="profile__description">Исследователь океана</p>
-                </div>
-                <button type="button" class="profile__add-button"></button>
-            </section>
-            <section class="elements">
-                <div class="element">
-                    <img src="./images/karachaevsk.png" alt="Фотография места" class="element__photo">
-                    <div class="element__capture-container">
-                        <p class="element__capture">Карачаевск</p>
-                        <button type="button" class="element__like"></button>
+                    <button type="button" class="profile__add-button"></button>
+                </section>
+                <section class="elements">
+                </section>
+                <template class="element-template"> 
+                    <div class="element">
+                        <img src="./images/delete.svg" alt="здесь должна быть кнопка для удаления :)" class="element__delete">
+                        <img src="" alt="Фотография места" class="element__photo">
+                        <div class="element__capture-container">
+                            <p class="element__capture"></p>
+                            <button type="button" class="element__like"></button>
+                        </div>
                     </div>
-                </div>
-                <div class="element">
-                    <img src="./images/elbrus.png" alt="Фотография места" class="element__photo">
-                    <div class="element__capture-container">
-                        <p class="element__capture">Гора Эльбрус</p>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/dombay.png" alt="Фотография места" class="element__photo">
-                    <div class="element__capture-container">
-                        <p class="element__capture">Домбай</p>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/elbrus.png" alt="Фотография места" class="element__photo">
-                    <div class="element__capture-container">
-                        <p class="element__capture">Гора Эльбрус</p>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/dombay.png" alt="Фотография места" class="element__photo">
-                    <div class="element__capture-container">
-                        <p class="element__capture">Домбай</p>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </div>
-                <div class="element">
-                    <img src="./images/karachaevsk.png" alt="Фотография места" class="element__photo">
-                    <div class="element__capture-container">
-                        <p class="element__capture">Карачаево-Ч...</p>
-                        <button type="button" class="element__like"></button>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <footer class="footer">
-            <p class="footer__capture">&copy; 2020 Mesto Russia</p>
-        </footer>
-    </div>
-<script src="./script/script.js"></script>
+                </template>
+
+            </main>
+            <footer class="footer">
+                <p class="footer__capture">&copy; 2020 Mesto Russia</p>
+            </footer>
+        </div>
+
+    <script src="./script/script.js"></script>
+
 </body>
 </html>

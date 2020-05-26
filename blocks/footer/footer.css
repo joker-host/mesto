@@ -1,14 +1,14 @@
 @import url(./__capture/footer__capture.css);
 
 .footer {
-    max-width: 882px;
-    margin: auto;
+    width: 100%;
+    margin: auto auto 0 auto;
     padding-bottom: 60px;
-    padding-left: 19px;
-    padding-right: 19px;
+    flex-shrink: 0;
+    justify-content: flex-start;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
     .footer {
         padding-bottom: 36px;
     }

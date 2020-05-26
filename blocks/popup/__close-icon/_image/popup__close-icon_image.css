@@ -1,0 +1,11 @@
+.popup__close-icon_image {
+    top: 48px;
+    right: -44px;
+}
+
+@media (max-width: 640px) {
+    .popup__close-icon_image {
+        top: 54px;
+        right: -34px;
+    }
+}

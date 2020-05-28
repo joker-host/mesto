@@ -3,6 +3,10 @@
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
+    white-space: nowrap;
+    max-width: 400px;
+    text-overflow: ellipsis;
+    overflow: hidden;
     grid-area: description;
 }
 

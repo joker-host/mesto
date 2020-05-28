@@ -5,6 +5,9 @@
 @import url(./__delete/element__delete.css);
 
 .element {
+    display: flex;
+    flex-direction: column;
     width: 282px;
+    height: 362px;
     position: relative;
 }

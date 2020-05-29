@@ -69,9 +69,8 @@ initialCardsReverse.forEach( function (item) {
 
 function submitForm(evt) {
     evt.preventDefault();
-    makeCard (titleInput.value, linkInput.value);
     addCard(makeCard(titleInput.value, linkInput.value), elementContainer);
-    toggleClassCard();
+    toggleClass(popupCard);
 }
 
 cardForm.addEventListener('submit', submitForm);
@@ -82,11 +81,12 @@ const popupCard = document.querySelector('.popup_type_card');
 const buttonAddCards = document.querySelector('.profile__add-button');
 const closeButtonCard = document.querySelector('.popup__close-icon_card');
 
-function toggleClassCard() {
-    popupCard.classList.toggle('popup_opened');
-}
-buttonAddCards.addEventListener('click', toggleClassCard);
-closeButtonCard.addEventListener('click', toggleClassCard);
+buttonAddCards.addEventListener('click', function() {
+    toggleClass(popupCard);
+});
+closeButtonCard.addEventListener('click', function() {
+    toggleClass(popupCard);
+});
 
 // ---------------------Лайк карточек------------------------
 
@@ -122,8 +122,10 @@ elementContainer.addEventListener('click', function(e) {
     }
 });
 
-function toggleClassImage() {
-    imagePopup.classList.toggle('popup_opened');
-}
+// function toggleClassImage() {
+//     imagePopup.classList.toggle('popup_opened');
+// }
 
-closeButtonImage.addEventListener('click', toggleClassImage);
+closeButtonImage.addEventListener('click', function() {
+    toggleClass(imagePopup);
+});

@@ -1,5 +1,6 @@
 .popup__container-image {
-    position: relative;
+    padding-top: 90px;
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

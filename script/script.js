@@ -63,7 +63,6 @@ function addCard(newCard, container) {
 const initialCardsReverse = initialCards.reverse();
 
 initialCardsReverse.forEach( function (item) {
-    makeCard(item.name, item.link);
     addCard(makeCard(item.name, item.link), elementContainer);
 });
 

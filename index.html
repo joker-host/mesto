@@ -31,10 +31,16 @@
             <div class="popup popup_type_profile">
                 <div class="popup__container">
                     <h2 class="popup__title">Редактировать профиль</h2>
-                    <form action="#" method="POST" name="form" class="popup__form popup__form_profile">
-                        <input type="text" name="name" class="popup__form-input" value="Жак-Ив Кусто" required id="name-input" placeholder="Имя">
-                        <input type="text" name="about" class="popup__form-input" value="Исследователь океана" required id="job-input" placeholder="Род деятельности">
-                        <button type="submit" class="popup__save-button">Сохранить</button>
+                    <form action="#" method="POST" name="form" class="popup__form popup__form_profile" novalidate>
+
+                        <input type="text" name="name" class="popup__form-input" value="Жак-Ив Кусто" required autocomplete="off" id="name-input" placeholder="Имя" minlength="2" maxlength="40" pattern="[А-ЯЁа-яёA-Za-z-–—\s]*">
+                        <span id="name-input-error" class="error"></span>
+
+                        <input type="text" name="about" class="popup__form-input" value="Исследователь океана" required autocomplete="off" id="job-input" placeholder="Род деятельности" minlength="2" maxlength="200">
+                        <span id="job-input-error" class="error"></span>
+
+                        <button type="submit" class="popup__save-button popup__save-button_profile" disabled>Сохранить</button>
+
                     </form>
                     <button type="button" class="popup__close-icon popup__close-icon_profile"></button>
                 </div>
@@ -42,9 +48,16 @@
             <div class="popup popup_type_card">
                 <div class="popup__container">
                     <h2 class="popup__title">Новое место</h2>
-                    <form action="#" method="POST" name="form" class="popup__form popup__form_card">                        <input type="text" name="title" class="popup__form-input" value="" required id="title-input" placeholder="Название">
-                        <input type="text" name="link" class="popup__form-input" value="" required id="link-input" placeholder="Ссылка на картинку">
-                        <button type="submit" class="popup__save-button">Создать</button>
+                    <form action="#" method="POST" name="form" class="popup__form popup__form_card" novalidate>
+
+                        <input type="text" name="title" class="popup__form-input" value="" required autocomplete="off" id="title-input" placeholder="Название" minlength="1" maxlength="30">
+                        <span id="title-input-error" class="error"></span>
+
+                        <input type="url" name="link" class="popup__form-input" value="" required autocomplete="off" id="link-input" placeholder="Ссылка на картинку">
+                        <span id="link-input-error" class="error"></span>
+
+                        <button type="submit" class="popup__save-button popup__save-button_card" disabled>Создать</button>
+
                     </form>
                     <button type="button" class="popup__close-icon popup__close-icon_card"></button>
                 </div>
@@ -69,6 +82,7 @@
         </div>
     </template>
 
+    <script src="./script/validation.js"></script>
     <script src="./script/massive-cards.js"></script>
     <script src="./script/script.js"></script>
     

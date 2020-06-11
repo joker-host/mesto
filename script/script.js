@@ -8,11 +8,20 @@ const job = document.querySelector('.profile__description');
 const nameInput = document.querySelector('#name-input');
 const jobInput = document.querySelector('#job-input');
 const submitButtonProfile = document.querySelector('.popup__save-button_profile');
+const profileForm = document.querySelector('.popup__form_profile');
 
-// Создаем функцию, которая добавляет/удаляет класс у элемента
+function openPopup(popupName) {
+    popupName.classList.add('popup_opened');
+    window.addEventListener('keydown', evt => {
+        escapeListener(evt, popupName);
+    })
+}
 
-function toggleClass(popupName) {
-    popupName.classList.toggle('popup_opened');
+function closePopup(popupName) {
+    popupName.classList.remove('popup_opened');
+    window.removeEventListener('keydown', evt => {
+        escapeListener(evt, popupName);
+    })
 }
 
 function setInput() {
@@ -20,26 +29,22 @@ function setInput() {
     jobInput.value = job.textContent;
 }
 
-function toggleClassProfile() {
-    toggleClass(popupProfile);
+popupOpenButton.addEventListener('click', () => {
+    openPopup(popupProfile);
     setInput();
     handleFormInput(profileForm, submitButtonProfile);
-    resetError();
-    addKeydownListener(popupProfile);
-}
+    resetError(profileForm);
+});
 
-// Добавляем реакцию на клик по кнопке открытия редактирования сведений о пользователе
-
-popupOpenButton.addEventListener('click', toggleClassProfile);
-closeButtonProfile.addEventListener('click', toggleClassProfile);
-const profileForm = document.querySelector('.popup__form_profile');
+closeButtonProfile.addEventListener('click', () => {
+    closePopup(popupProfile);
+});
 
 function formSubmitHandler(evt) {
     evt.preventDefault();
     name.textContent = nameInput.value;
     job.textContent = jobInput.value;
-    // Закрываем окно
-    toggleClassProfile();
+    closePopup(popupProfile);
 }
 
 profileForm.addEventListener('submit', formSubmitHandler);
@@ -82,7 +87,7 @@ initialCardsReverse.forEach(function (item) {
 function submitForm(evt) {
     evt.preventDefault();
     addCard(makeCard(titleInput.value, linkInput.value), elementContainer);
-    toggleClass(popupCard);
+    closePopup(popupCard);
 }
 
 cardForm.addEventListener('submit', submitForm);
@@ -94,15 +99,15 @@ const buttonAddCards = document.querySelector('.profile__add-button');
 const closeButtonCard = document.querySelector('.popup__close-icon_card');
 
 buttonAddCards.addEventListener('click', function () {
-    toggleClass(popupCard);
     titleInput.value = '';
     linkInput.value = '';
     handleFormInput(cardForm, submitButtonCard);
-    resetError();
-    addKeydownListener(popupCard);
+    resetError(popupCard);
+    openPopup(popupCard);
 });
+
 closeButtonCard.addEventListener('click', function () {
-    toggleClass(popupCard);
+    closePopup(popupCard);
 });
 
 // ---------------------Лайк карточек------------------------
@@ -125,14 +130,13 @@ const popupCapture = document.querySelector('.popup__capture');
 const closeButtonImage = document.querySelector('.popup__close-icon_image');
 
 function openPopupImage(e) {
-    imagePopup.classList.add('popup_opened');
+    openPopup(imagePopup);
     popupImage.src = e.target.src;
     popupCapture.textContent = e.target.getAttribute('data-description');
-    addKeydownListener(imagePopup);
 }
 
 closeButtonImage.addEventListener('click', function () {
-    toggleClass(imagePopup);
+    closePopup(imagePopup);
 });
 
 // ---------------------Валидация------------------------
@@ -153,19 +157,15 @@ const popupOverlay = Array.from(document.querySelectorAll('.popup'));
 popupOverlay.forEach(elem => {
     elem.addEventListener('click', (e) => {
         if (e.target.classList.contains('popup')) {
-            e.target.classList.remove('popup_opened');
+            closePopup(imagePopup);
         }
     })
 })
 
 // ---------------------Закрытие попапа нажатием на Escape------------------------
 
-function addKeydownListener(popupClass) {
-    window.addEventListener('keydown', evt => {
-        if (evt.keyCode == 27) {
-            popupClass.classList.remove('popup_opened');
-        }
-    }, {
-        once: true
-    });
+function escapeListener(evt, popupName) {
+    if (evt.key == 'Escape') {
+        closePopup(popupName);
+    }
 }

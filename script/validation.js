@@ -1,9 +1,9 @@
-function makeMassiveForm(settingsObj) {  //функция делает массив из всех форм на странице
+function makeArrayOfForms(settingsObj) {  //функция делает массив из всех форм на странице
     return Array.from(document.querySelectorAll(settingsObj.formSelector));
 }
 
 function enableValidation(settingsObj) {
-    const formElements = makeMassiveForm(settingsObj); //массив с формами
+    const formElements = makeArrayOfForms(settingsObj); //массив с формами
     formElements.forEach(formElement => {
         const inputElements = Array.from(formElement.querySelectorAll(settingsObj.inputSelector));
         const submitButton = formElement.querySelector('.popup__save-button');
@@ -36,9 +36,9 @@ function preventDefault(evt) {
     evt.preventDefault();
 }
 
-function resetError() {
-    const errorSpan = Array.from(document.querySelectorAll('.error'));
-    const inputElements = Array.from(document.querySelectorAll('.popup__form-input'));
+function resetError(form) {
+    const errorSpan = Array.from(form.querySelectorAll('.error'));
+    const inputElements = Array.from(form.querySelectorAll('.popup__form-input'));
     errorSpan.forEach(everySpan => {
         everySpan.textContent = '';
     })

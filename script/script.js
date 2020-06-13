@@ -12,16 +12,12 @@ const profileForm = document.querySelector('.popup__form_profile');
 
 function openPopup(popupName) {
     popupName.classList.add('popup_opened');
-    window.addEventListener('keydown', evt => {
-        escapeListener(evt, popupName);
-    })
+    window.addEventListener('keydown', escapeListener);
 }
 
 function closePopup(popupName) {
     popupName.classList.remove('popup_opened');
-    window.removeEventListener('keydown', evt => {
-        escapeListener(evt, popupName);
-    })
+    window.removeEventListener('keydown', escapeListener);
 }
 
 function setInput() {
@@ -156,16 +152,18 @@ const popupOverlay = Array.from(document.querySelectorAll('.popup'));
 
 popupOverlay.forEach(elem => {
     elem.addEventListener('click', (e) => {
-        if (e.target.classList.contains('popup')) {
-            closePopup(imagePopup);
+        const openedPopup = document.querySelector('.popup_opened');
+        if (e.target.classList.contains('popup_opened')) {
+            closePopup(openedPopup);
         }
     })
 })
 
 // ---------------------Закрытие попапа нажатием на Escape------------------------
 
-function escapeListener(evt, popupName) {
-    if (evt.key == 'Escape') {
-        closePopup(popupName);
+function escapeListener(evt) {
+    const openedPopup = document.querySelector('.popup_opened');
+    if (evt.key == 'Escape') { 
+        openedPopup.classList.remove('popup_opened');
     }
 }

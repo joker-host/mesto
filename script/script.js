@@ -1,18 +1,7 @@
 import {Card} from './Card.js';
 import {initialCards} from './massive-cards.js';
 import {FormValidator} from './FormValidator.js';
-
-// ---------------------Открытие/закрытие попапов------------------------
-
-function openPopup(popupName) {
-    popupName.classList.add('popup_opened');
-    window.addEventListener('keydown', escapeListener);
-}
-
-function closePopup(popupName) {
-    popupName.classList.remove('popup_opened');
-    window.removeEventListener('keydown', escapeListener);
-}
+import {openPopup, closePopup} from './utils.js';
 
 // ---------------------Редактирование профиля------------------------
 
@@ -88,14 +77,7 @@ popupOverlay.forEach(elem => {
     })
 })
 
-// ---------------------Закрытие попапа нажатием на escape------------------------
 
-function escapeListener(evt) {
-    const openedPopup = document.querySelector('.popup_opened');
-    if (evt.key == 'Escape') {
-        openedPopup.classList.remove('popup_opened');
-    }
-}
 
 // ---------------------Добавление карточек------------------------
 

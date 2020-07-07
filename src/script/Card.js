@@ -1,12 +1,9 @@
-import {openPopup, escapeListener} from './utils.js';
-
-const imagePopup = document.querySelector('.popup_type_image');
-
 export class Card {
-    constructor(cardName, cardUrl, cardSelector) {  // Принимает название карточки, ее url и селектор шаблона
+    constructor(cardName, cardUrl, cardSelector, {handleCardClick}) {  // Принимает название карточки, ее url, селектор шаблона и функцию handleCardClick
         this._cardName = cardName;
         this._cardUrl = cardUrl;
         this._cardSelector = cardSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplateCard() { // метод возвращает клонированный шаблон карточки
@@ -37,7 +34,7 @@ export class Card {
             this._deleteCards();
         });
         this._card.querySelector('.element__photo').addEventListener('click', () => {
-            this._openPopupImage();
+            this._handleCardClick();
         });
     }
 
@@ -48,12 +45,5 @@ export class Card {
     _deleteCards() { //метод удаления карточек
         this._card.remove();
         this._card = null;
-    }
-
-    _openPopupImage() { //метод зума картинок
-        openPopup(imagePopup);
-        document.addEventListener('keydown', escapeListener);
-        document.querySelector('.popup__image').src = this._card.querySelector('.element__photo').src;
-        document.querySelector('.popup__capture').textContent = this._card.querySelector('.element__photo').getAttribute('data-description');
     }
 }

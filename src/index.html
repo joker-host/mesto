@@ -2,7 +2,6 @@
 <html lang="ru">
 
 <head>
-    <link rel="stylesheet" href="./pages/index.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
@@ -72,7 +71,7 @@
         </div>
         <div class="popup popup_type_image">
             <figure class="popup__container-image">
-                <img src="" alt="здесь должна быть увеличенная картинка" class="popup__image">
+                <img alt="здесь должна быть увеличенная картинка" class="popup__image">
                 <figcaption class="popup__capture"></figcaption>
                 <button type="button" class="popup__close-icon popup__close-icon_image"></button>
             </figure>
@@ -82,19 +81,13 @@
     <template class="element-template">
         <div class="element">
             <img src="./images/delete.svg" alt="здесь должна быть кнопка для удаления :)" class="element__delete">
-            <img src="" alt="Упс, кажется вы вставили не рабочую ссылку" class="element__photo">
+            <img alt="Упс, кажется вы вставили не рабочую ссылку" class="element__photo">
             <div class="element__capture-container">
                 <p class="element__capture"></p>
                 <button type="button" class="element__like"></button>
             </div>
         </div>
     </template>
-
-    <script type="module" src="./script/Card.js"></script>
-    <script type="module" src="./script/FormValidator.js"></script>
-    <script type="module" src="./script/massive-cards.js"></script>
-    <script type="module" src="./script/script.js"></script>
-    <script type="module" src="./script/utils.js"></script>
 
 </body>
 

@@ -19,6 +19,7 @@ export class Card {
         this._getTemplateCard();
         this._capture.textContent = this._cardName;
         this._photo.src = this._cardUrl;
+        this._photo.alt = 'Упс! Кажется вы вставили нерабочую ссылку на изображение :(';
         this._photo.setAttribute('data-description', this._cardName);
 
         this._setEventListeners();

@@ -42,10 +42,10 @@ export class FormValidator {
     resetError() { // сбрасывает ошибки в форме
         this._handleFormInput();
         this._errorSpans.forEach(everySpan => {
-        everySpan.textContent = '';
-        })
+            everySpan.textContent = '';
+        });
         this._inputs.forEach(everyInput => {
-        everyInput.classList.remove('popup__form-input_type_error');
-        })
+            everyInput.classList.remove('popup__form-input_type_error');
+        });
     }
 }

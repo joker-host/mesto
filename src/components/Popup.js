@@ -11,7 +11,7 @@ export class Popup{
     }
 
     close() {
-        this._popupSelector.classList.remove('popup_opened');
+        this._popupSelector.classList.remove('popup_opened'); ///исправить удаление без аргумента evt
         document.removeEventListener('keydown', (evt) => {
             this._handleEscClose(evt);
         });

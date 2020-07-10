@@ -1,11 +1,11 @@
-import {Card} from './Card.js';
-import {initialCards} from './massive-cards.js';
-import {FormValidator} from './FormValidator.js';
-import {Section} from './Section.js';
-import {Popup} from './Popup.js';
-import {PopupWithImage} from '../script/PopupWithImage.js';
-import {PopupWithForm} from '../script/PopupWithForm.js';
-import {UserInfo} from './UserInfo.js';
+import {Card} from '../components/Card.js';
+import {initialCards} from '../utils/initialCards.js';
+import {FormValidator} from '../components/FormValidator.js';
+import {Section} from '../components/Section.js';
+import {Popup} from '../components/Popup.js';
+import {PopupWithImage} from '../components/PopupWithImage.js';
+import {PopupWithForm} from '../components/PopupWithForm.js';
+import {UserInfo} from '../components/UserInfo.js';
 import '../pages/index.css';
 
 // ---------------------Валидация------------------------
@@ -30,10 +30,11 @@ cardFormValidation.enableValidation();
 // ---------------------Редактирование профиля------------------------
 
 const popupOpenButton = document.querySelector('.profile__edit-button');
+const nameInput = document.getElementById('name-input');
+const jobInput = document.getElementById('job-input');
 
 const userInfo = new UserInfo('.profile__author', '.profile__description');
 const profileSubmit = new PopupWithForm('.popup_type_profile', values => {
-    console.log(values);
     userInfo.setUserInfo(values);
     profileSubmit.close();
 });
@@ -42,8 +43,8 @@ profileSubmit.setEventListeners('.popup__close-icon_profile');
 
 popupOpenButton.addEventListener('click', () => {
     const autorInfo = userInfo.getUserInfo();
-    document.getElementById('name-input').value = autorInfo.name;
-    document.getElementById('job-input').value = autorInfo.info;
+    nameInput.value = autorInfo.name;
+    jobInput.value = autorInfo.info;
     profileSubmit.open();
     profileFormValidation.resetError();
 });

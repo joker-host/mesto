@@ -3,6 +3,7 @@
 @import url(./__like/element__like.css);
 @import url(./__capture-container/element__capture-container.css);
 @import url(./__delete/element__delete.css);
+@import url(./__like-counter/element__like-counter.css);
 
 .element {
     display: flex;

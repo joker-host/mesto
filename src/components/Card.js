@@ -1,9 +1,14 @@
 export class Card {
-    constructor(cardName, cardUrl, cardSelector, {handleCardClick}) {  // Принимает название карточки, ее url, селектор шаблона и функцию handleCardClick
+    constructor(cardName, cardUrl, likeCounter, cardSelector, {handleCardClick}, {handleCardLike}, {handleLikeButton}, {handleDelete}, myId) {  // Принимает название карточки, ее url, селектор шаблона и функцию handleCardClick
         this._cardName = cardName;
         this._cardUrl = cardUrl;
+        this._likeCounter = likeCounter;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
+        this._handleCardLike = handleCardLike;
+        this._handleLikeButton = handleLikeButton;
+        this._handleDelete = handleDelete;
+        this._myId = myId;
     }
 
     _getTemplateCard() { // метод возвращает клонированный шаблон карточки
@@ -12,27 +17,35 @@ export class Card {
         this._card = cardElement.cloneNode(true);
         this._photo = this._card.querySelector('.element__photo');
         this._capture = this._card.querySelector('.element__capture');
+        this._like = this._card.querySelector('.element__like-counter');
+        this._likeButton = this._card.querySelector('.element__like');
+        
         return cardElement;
     }
 
-    makeCard() { //метод создает карточку
+    makeCard(item) { //метод создает карточку
         this._getTemplateCard();
+        this._compareId(item);
         this._capture.textContent = this._cardName;
         this._photo.src = this._cardUrl;
+        this._like.textContent = this._likeCounter;
         this._photo.alt = 'Упс! Кажется вы вставили нерабочую ссылку на изображение :(';
         this._photo.setAttribute('data-description', this._cardName);
 
         this._setEventListeners();
-
+        
+        this._handleLikeButton(this._likeButton);
+        
         return this._card;
     }
 
     _setEventListeners() { //метод вешает слушатели на созданную карточку
-        this._card.querySelector('.element__like').addEventListener('click', () => {
+        this._likeButton.addEventListener('click', () => {
             this._likeCards();
+            this._handleCardLike(this._likeButton, this._like);
         });
         this._card.querySelector('.element__delete').addEventListener('click', () => {
-            this._deleteCards();
+            this._handleDelete();
         });
         this._card.querySelector('.element__photo').addEventListener('click', () => {
             this._handleCardClick();
@@ -43,8 +56,18 @@ export class Card {
         this._card.querySelector('.element__like').classList.toggle('element__like_active');
     }
 
-    _deleteCards() { //метод удаления карточек
+    deleteCards() { //метод удаления карточек
         this._card.remove();
         this._card = null;
+        // document.querySelector('.popup_type_delete-cards').classList.add('popup_opened');
+    }
+
+    _compareId(item) {
+        this._deleteButton = this._card.querySelector('.element__delete');
+        if (item.owner._id === this._myId) {
+            this._deleteButton.style.display = 'block'
+        } else {
+            this._deleteButton.style.display = 'none'
+        }
     }
 }

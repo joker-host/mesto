@@ -15,11 +15,14 @@
         </header>
         <main class="content">
             <section class="profile">
-                <img src="./images/avatar.png" alt="здесь должна быть аватарка :)" class="profile__avatar">
+                <div class="profile__avatar-overlay">
+                    <img alt="здесь должна быть аватарка :)" class="profile__avatar">
+                </div>
+                
                 <div class="profile__info">
-                    <h2 class="profile__author">Жак-Ив Кусто</h2>
+                    <h2 class="profile__author"></h2>
                     <button type="button" class="profile__edit-button"></button>
-                    <p class="profile__description">Исследователь океана</p>
+                    <p class="profile__description"></p>
                 </div>
                 <button type="button" class="profile__add-button"></button>
             </section>
@@ -76,6 +79,33 @@
                 <button type="button" class="popup__close-icon popup__close-icon_image"></button>
             </figure>
         </div>
+        <div class="popup popup_type_delete-cards">
+            <div class="popup__container">
+                <h2 class="popup__title">Вы уверены?</h2>
+                <form action="#" method="POST" name="form" class="popup__form popup__form_delete" novalidate>
+
+                    <button type="submit" class="popup__save-button popup__save-button_delete">Да</button>
+
+                </form>
+                <button type="button" class="popup__close-icon popup__close-icon_delete"></button>
+            </div>
+        </div>
+        <div class="popup popup_type_avatar">
+            <div class="popup__container">
+                <h2 class="popup__title">Обновить аватар</h2>
+                <form action="#" method="POST" name="form" class="popup__form popup__form_avatar " novalidate>
+
+                    <input type="url" name="link" id="avatar-input" class="popup__form-input single-input" required
+                        autocomplete="off" placeholder="Вставьте ссылку" minlength="2" >
+                    <span id="avatar-input-error" class="error"></span>
+
+                    <button type="submit" class="popup__save-button popup__save-button_avatar"
+                        disabled>Сохранить</button>
+
+                </form>
+                <button type="button" class="popup__close-icon popup__close-icon_avatar"></button>
+            </div>
+        </div>
     </div>
 
     <template class="element-template">
@@ -84,7 +114,10 @@
             <img alt="Упс, кажется вы вставили не рабочую ссылку" class="element__photo">
             <div class="element__capture-container">
                 <p class="element__capture"></p>
-                <button type="button" class="element__like"></button>
+                <div class="element__like-container">
+                    <button type="button" class="element__like"></button>
+                    <p class="element__like-counter"></p>
+                </div>
             </div>
         </div>
     </template>

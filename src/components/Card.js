@@ -59,7 +59,6 @@ export class Card {
     deleteCards() { //метод удаления карточек
         this._card.remove();
         this._card = null;
-        // document.querySelector('.popup_type_delete-cards').classList.add('popup_opened');
     }
 
     _compareId(item) {

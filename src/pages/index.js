@@ -9,6 +9,56 @@ import { PopupWithDelete } from '../components/PopupWithDelete.js';
 import { Api } from '../components/Api.js';
 import '../pages/index.css';
 
+// ---------------------функция-----------------------
+
+function callbacksCards(values) {
+    const { name, link, likes, _id } = values
+    const card = new Card(name, link, likes.length, `element-template`, {
+        handleCardClick: () => {
+            popupImage.open(link, name);
+            popupImage.setEventListeners('.popup__close-icon_image');
+        }
+    },
+        {
+            handleCardLike: (likeButton, likeCounter) => {
+                if (likeButton.classList.contains('element__like_active')) { //Если у кнопки лайка есть активный селектор, то передает запрос удаления и уменьшаем количество лайков
+                    api.likeCards(_id)
+                        .then(() => {
+                            likeCounter.textContent++;
+                        });
+                } else { // Если нет, то наоборот
+                    api.disLikeCards(_id)
+                        .then(() => {
+                            likeCounter.textContent--;
+                        });
+                }
+            }
+        },
+        {
+            handleLikeButton(likeButton) {
+                likes.forEach(likeObj => {
+                    if (likeObj._id === "7c9415b94dba96eadde634c5") {
+                        likeButton.classList.add('element__like_active');
+                    }
+                })
+            }
+        },
+        {
+            handleDelete() {
+                deleteCards.open();
+                deleteCards.setSubmit(() => {
+                    console.log(_id);
+                    api.deleteCards(_id)
+                        .then(res => console.log(res));
+                    card.deleteCards();
+                    deleteCards.close();
+                })
+            }
+        }, "7c9415b94dba96eadde634c5");
+    const cardElement = card.makeCard(values); //применяем метод создания карточки
+    return cardElement
+}
+
 // ---------------------Валидация------------------------
 
 const profileForm = document.querySelector('.popup__form_profile');
@@ -40,96 +90,26 @@ const profileAvatar = document.querySelector('.profile__avatar');
 
 const api = new Api();
 
-api.getUserInfo({
-    method: 'GET',
-    headers: {
-        authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-    }
-})
-.then(res => {
-    profileAuthor.textContent = res.name;
-    profileDescription.textContent = res.about;
-    profileAvatar.src = res.avatar;
-})
+api.getUserInfo()
+    .then(res => {
+        profileAuthor.textContent = res.name;
+        profileDescription.textContent = res.about;
+        profileAvatar.src = res.avatar;
+    })
 
 // ---------------------Запросы к серверу (Карточки)------------------------
 
 const deleteCards = new PopupWithDelete('.popup_type_delete-cards');
 deleteCards.setEventListeners('.popup__close-icon_delete');
 
-api.getInitialCards({
-    method: 'GET',
-    headers: {
-        authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-    }
-})
+api.getInitialCards()
     .then(res => {
         const addCards = new Section({
             items: res, //передаем массив с карточками
             renderer: (item) => {
-                const card = new Card(item.name, item.link, item.likes.length, `element-template`, {
-                    handleCardClick: () => {
-                        popupImage.open(item.link, item.name);
-                        popupImage.setEventListeners('.popup__close-icon_image');
-                    }
-                },
-                    {
-                        handleCardLike: (likeButton, likeCounter) => {
-                            if (likeButton.classList.contains('element__like_active')) { //Если у кнопки лайка есть активный селектор, то передает запрос удаления и уменьшаем количество лайков
-                                api.likeCards(item._id,
-                                    {
-                                        method: 'PUT',
-                                        headers: {
-                                            authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-                                        }
-                                    }).then(() => {
-                                        likeCounter.textContent++;
-                                    });
-                            } else { // Если нет, то наоборот
-                                api.likeCards(item._id,
-                                    {
-                                        method: 'DELETE',
-                                        headers: {
-                                            authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-                                        }
-                                    }).then(() => {
-                                        likeCounter.textContent--;
-                                    });
-                            }
-                        }
-                    },
-                    {
-                        handleLikeButton(likeButton) {
-                            item.likes.forEach(likeObj => {
-                                if (likeObj._id === "7c9415b94dba96eadde634c5") {
-                                    likeButton.classList.add('element__like_active');
-                                }
-                            })
-                        }
-                    },
-                    {
-                        handleDelete() {
-                            deleteCards.open();
-                            deleteCards.setSubmit(() => {
-                                console.log(item._id);
-                                api.deleteCards(item._id, {
-                                    method: 'DELETE',
-                                    headers: {
-                                        authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-                                    }
-                                }).then(res => console.log(res));
-                                card.deleteCards();
-                                deleteCards.close();
-                            })
-                        }
-                    },
-                    "7c9415b94dba96eadde634c5");
-                const cardElement = card.makeCard(item); //применяем метод создания карточки
-                return cardElement;
+                return callbacksCards(item);
             }
         }, '.elements');
-
-
 
         addCards.renderItems();
     });
@@ -145,20 +125,11 @@ const userInfo = new UserInfo('.profile__author', '.profile__description');
 const profileSubmit = new PopupWithForm('.popup_type_profile', values => {
     userInfo.setUserInfo(values);
     profileSaveButton.textContent = 'Сохранение...';
-    api.setUserUnfo({
-        method: 'PATCH',
-        headers: {
-            authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: values.name,
-            about: values.about
-        })
-    }).then(() => {
-        profileSaveButton.textContent = 'Сохранить';
-        profileSubmit.close();
-    });
+    api.setUserUnfo(values)
+        .then(() => {
+            profileSaveButton.textContent = 'Сохранить';
+            profileSubmit.close();
+        });
 });
 
 profileSubmit.setEventListeners('.popup__close-icon_profile');
@@ -190,77 +161,18 @@ buttonAddCards.addEventListener('click', function () {
 const popupImage = new PopupWithImage('.popup_type_image');
 
 const cardSubmit = new PopupWithForm('.popup_type_card', values => {
+    console.log(values);
     cardSaveButton.textContent = 'Сохранение...';
-    api.addCards({
-        method: 'POST',
-        headers: {
-            authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            name: values.title,
-            link: values.link
-        })
-    }).then((res) => {
-        cardSaveButton.textContent = 'Сохранить';
-        console.log(res);
-        cardSubmit.close();
-        const card = new Card(values.title, values.link, 0, `element-template`, {
-            handleCardClick: () => {
-                popupImage.open(values.link, values.title);
-                popupImage.setEventListeners('.popup__close-icon_image');
-            }
-        },
-            {
-                handleCardLike: (likeButton, likeCounter) => {
-                    if (likeButton.classList.contains('element__like_active')) { //Если у кнопки лайка есть активный селектор, то передает запрос удаления и уменьшаем количество лайков
-                        api.likeCards(res._id,
-                            {
-                                method: 'PUT',
-                                headers: {
-                                    authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-                                }
-                            }).then(() => {
-                                likeCounter.textContent++;
-                            });
-                    } else { // Если нет, то наоборот
-                        api.likeCards(res._id,
-                            {
-                                method: 'DELETE',
-                                headers: {
-                                    authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-                                }
-                            }).then(() => {
-                                likeCounter.textContent--;
-                            });
-                    }
-                }
-            },
-            {
-                handleLikeButton() {
-                    undefined;
-                }
-            },
-            {
-                handleDelete() {
-                    deleteCards.open();
-                    deleteCards.setSubmit(() => {
-                        console.log(res._id);
-                        api.deleteCards(res._id, {
-                            method: 'DELETE',
-                            headers: {
-                                authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-                            }
-                        }).then(res => console.log(res));
-                        card.deleteCards();
-                        deleteCards.close();
-                    })
-                }
-            },
-            "7c9415b94dba96eadde634c5");
-        const cardElement = card.makeCard(res);
-        document.querySelector('.elements').prepend(cardElement);
-    });
+    api.addCards(values)
+        .then((res) => {
+            cardSaveButton.textContent = 'Сохранить';
+            console.log(res);
+            cardSubmit.close();
+            return callbacksCards(res);
+            
+
+        });
+    // addCards.renderItems();
 });
 
 cardSubmit.setEventListeners('.popup__close-icon_card');
@@ -273,26 +185,22 @@ const avatarSaveButton = document.querySelector('.popup__save-button_avatar');
 
 const avatarPopup = new PopupWithForm('.popup_type_avatar', values => {
     avatarSaveButton.textContent = 'Сохранение...';
-    api.changeAvatar({
-        method: 'PATCH',
-        headers: {
-          authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          avatar: values.link
+    api.changeAvatar(values)
+        .then(res => {
+            avatarSaveButton.textContent = 'Сохранить';
+            console.log(res)
+            // if(res.ok) {
+            //     avatarUrl.src = res.avatar;
+            //     avatarPopup.close();
+            // } else {
+            //     // console.log('error');
+            // }
         })
-      })
-      .then(res => {
-        avatarSaveButton.textContent = 'Сохранить';
-        avatarUrl.src = res.avatar;
-        avatarPopup.close();
-      })
 })
 
-avatar.addEventListener('click', function() {
+avatar.addEventListener('click', function () {
     avatarPopup.open();
     avatarFormValidation.resetError();
 })
 
-avatarPopup.setEventListeners('.popup__close-icon_avatar')
+avatarPopup.setEventListeners('.popup__close-icon_avatar');

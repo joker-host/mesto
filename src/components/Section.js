@@ -5,13 +5,15 @@ export class Section {
         this._containerSelector = document.querySelector(containerSelector);
     }
 
-    renderItems() { //берет массив и рендерит каждый его элемент
-        this._items.forEach(item => {
-            this.addItem(this._renderer(item));
+    renderItems() {
+         //берет массив и рендерит каждый его элемент
+        this._items.reverse().forEach(item => {
+            this._renderer(item);
         })
     }
     
-    addItem(element) { //добавляет в разметку
+    addItem(element)
+     {         
         this._containerSelector.prepend(element);
     }
 }

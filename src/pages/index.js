@@ -11,7 +11,7 @@ import '../pages/index.css';
 
 // ---------------------функция-----------------------
 
-function callbacksCards(values) {
+function callbacksCards(values, container) {
     const { name, link, likes, _id } = values
     const card = new Card(name, link, likes.length, `element-template`, {
         handleCardClick: () => {
@@ -25,11 +25,17 @@ function callbacksCards(values) {
                     api.likeCards(_id)
                         .then(() => {
                             likeCounter.textContent++;
+                        })
+                        .catch(() => {
+                            console.error('error');
                         });
                 } else { // Если нет, то наоборот
                     api.disLikeCards(_id)
                         .then(() => {
                             likeCounter.textContent--;
+                        })
+                        .catch(() => {
+                            console.error('error');
                         });
                 }
             }
@@ -49,14 +55,20 @@ function callbacksCards(values) {
                 deleteCards.setSubmit(() => {
                     console.log(_id);
                     api.deleteCards(_id)
-                        .then(res => console.log(res));
-                    card.deleteCards();
-                    deleteCards.close();
+                    .then(res => {
+                        console.log(res);
+                        card.deleteCards();
+                        deleteCards.close();
+                    })
+                    .catch(() => {
+                        console.error('error');
+                    });
+                    
                 })
             }
         }, "7c9415b94dba96eadde634c5");
     const cardElement = card.makeCard(values); //применяем метод создания карточки
-    return cardElement
+    container.addItem(cardElement)
 }
 
 // ---------------------Валидация------------------------
@@ -96,6 +108,9 @@ api.getUserInfo()
         profileDescription.textContent = res.about;
         profileAvatar.src = res.avatar;
     })
+    .catch(() => {
+        console.error('error');
+    })
 
 // ---------------------Запросы к серверу (Карточки)------------------------
 
@@ -107,11 +122,31 @@ api.getInitialCards()
         const addCards = new Section({
             items: res, //передаем массив с карточками
             renderer: (item) => {
-                return callbacksCards(item);
+                return callbacksCards(item, addCards);
             }
         }, '.elements');
 
         addCards.renderItems();
+
+        const cardSubmit = new PopupWithForm('.popup_type_card', values => {
+            console.log(values);
+            cardSaveButton.textContent = 'Сохранение...';
+            api.addCards(values)
+                .then((res) => {
+                    cardSaveButton.textContent = 'Сохранить';
+                    console.log(res);
+                    cardSubmit.close();
+                    callbacksCards(res, addCards);
+                })
+                .catch(() => {
+                    console.error('error');
+                    cardSaveButton.textContent = 'Сохранить';
+                });
+        });
+        cardSubmit.setEventListeners('.popup__close-icon_card');
+    })
+    .catch(() => {
+        console.error('error');
     });
 
 // ---------------------Редактирование профиля------------------------
@@ -129,6 +164,10 @@ const profileSubmit = new PopupWithForm('.popup_type_profile', values => {
         .then(() => {
             profileSaveButton.textContent = 'Сохранить';
             profileSubmit.close();
+        })
+        .catch(() => {
+            console.error('error');
+            profileSaveButton.textContent = 'Сохранить';
         });
 });
 
@@ -160,23 +199,6 @@ buttonAddCards.addEventListener('click', function () {
 
 const popupImage = new PopupWithImage('.popup_type_image');
 
-const cardSubmit = new PopupWithForm('.popup_type_card', values => {
-    console.log(values);
-    cardSaveButton.textContent = 'Сохранение...';
-    api.addCards(values)
-        .then((res) => {
-            cardSaveButton.textContent = 'Сохранить';
-            console.log(res);
-            cardSubmit.close();
-            return callbacksCards(res);
-            
-
-        });
-    // addCards.renderItems();
-});
-
-cardSubmit.setEventListeners('.popup__close-icon_card');
-
 // ---------------------Смена аватара пользователя------------------------
 
 const avatar = document.querySelector('.profile__avatar-overlay');
@@ -187,14 +209,13 @@ const avatarPopup = new PopupWithForm('.popup_type_avatar', values => {
     avatarSaveButton.textContent = 'Сохранение...';
     api.changeAvatar(values)
         .then(res => {
+            avatarUrl.src = res.avatar;
+            avatarPopup.close();
             avatarSaveButton.textContent = 'Сохранить';
-            console.log(res)
-            // if(res.ok) {
-            //     avatarUrl.src = res.avatar;
-            //     avatarPopup.close();
-            // } else {
-            //     // console.log('error');
-            // }
+        })
+        .catch(() => {
+            console.error('error');
+            avatarSaveButton.textContent = 'Сохранить';
         })
 })
 

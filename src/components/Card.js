@@ -5,9 +5,13 @@ export class Card {
         this._likeCounter = likeCounter;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
+        this._handleCardClick = this._handleCardClick.bind(this);
         this._handleCardLike = handleCardLike;
         this._handleLikeButton = handleLikeButton;
         this._handleDelete = handleDelete;
+        this._handleDelete = this._handleDelete.bind(this);
+
+        this._uniteListenerFunc = this._uniteListenerFunc.bind(this);
         this._myId = myId;
     }
 
@@ -40,16 +44,15 @@ export class Card {
     }
 
     _setEventListeners() { //метод вешает слушатели на созданную карточку
-        this._likeButton.addEventListener('click', () => {
-            this._likeCards();
-            this._handleCardLike(this._likeButton, this._like);
-        });
-        this._card.querySelector('.element__delete').addEventListener('click', () => {
-            this._handleDelete();
-        });
-        this._card.querySelector('.element__photo').addEventListener('click', () => {
-            this._handleCardClick();
-        });
+        this._likeButton.addEventListener('click', this._uniteListenerFunc);
+        this._card.querySelector('.element__delete').addEventListener('click', this._handleDelete);
+        this._card.querySelector('.element__photo').addEventListener('click', this._handleCardClick);
+    }
+
+    _removeEventListeners() {
+        this._likeButton.removeEventListener('click', this._uniteListenerFunc);
+        this._card.querySelector('.element__delete').removeEventListener('click', this._handleDelete);
+        this._card.querySelector('.element__photo').removeEventListener('click', this._handleCardClick);
     }
 
     _likeCards() { //метод лайка карточек
@@ -57,6 +60,7 @@ export class Card {
     }
 
     deleteCards() { //метод удаления карточек
+        this._removeEventListeners();
         this._card.remove();
         this._card = null;
     }
@@ -68,5 +72,10 @@ export class Card {
         } else {
             this._deleteButton.style.display = 'none'
         }
+    }
+
+    _uniteListenerFunc() {
+        this._likeCards();
+        this._handleCardLike(this._likeButton, this._like);
     }
 }

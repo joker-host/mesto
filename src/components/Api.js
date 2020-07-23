@@ -1,14 +1,13 @@
 export class Api {
-    constructor() {
-        this.baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-13'
+    constructor(headers) {
+        this.baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-13';
+        this._headers = headers;
     }
 
     getInitialCards() {
         return fetch(`${this.baseUrl}/cards`, {
             method: 'GET',
-            headers: {
-                authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-            }
+            headers: this._headers
         })
         .then(result => {
             if (result.ok) {
@@ -25,9 +24,7 @@ export class Api {
     getUserInfo() {
         return fetch(`${this.baseUrl}/users/me`, {
             method: 'GET',
-            headers: {
-                authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-            }
+            headers: this._headers
         })
         .then(result => {
             if (result.ok) {
@@ -44,10 +41,7 @@ export class Api {
     setUserUnfo(values) {
         return fetch(`${this.baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: {
-                authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5',
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 name: values.name,
                 about: values.about
@@ -68,10 +62,7 @@ export class Api {
     addCards(values) {
         return fetch(`${this.baseUrl}/cards`, {
             method: 'POST',
-            headers: {
-                authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5',
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
                 name: values.title,
                 link: values.link
@@ -92,9 +83,7 @@ export class Api {
     likeCards(idCard) {
         return fetch(`${this.baseUrl}/cards/likes/${idCard}`, {
             method: 'PUT',
-            headers: {
-            authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-            }
+            headers: this._headers
         })
         .then(result => {
             if (result.ok) {
@@ -111,9 +100,7 @@ export class Api {
     disLikeCards(idCard) {
         return fetch(`${this.baseUrl}/cards/likes/${idCard}`, {
             method: 'DELETE',
-            headers: {
-            authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-            }
+            headers: this._headers
         })
         .then(result => {
             if (result.ok) {
@@ -130,9 +117,7 @@ export class Api {
     deleteCards(idCard) {
         return fetch(`${this.baseUrl}/cards/${idCard}`, {
             method: 'DELETE',
-            headers: {
-                authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5'
-            }
+            headers: this._headers
         })
         .then(result => {
             if (result.ok) {
@@ -149,10 +134,7 @@ export class Api {
     changeAvatar(values) {
         return fetch(`${this.baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            headers: {
-              authorization: '296925be-8e2c-44ab-b32c-580bcbc5c9b5',
-              'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({
               avatar: values.link
             })

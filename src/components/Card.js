@@ -23,6 +23,8 @@ export class Card {
         this._capture = this._card.querySelector('.element__capture');
         this._like = this._card.querySelector('.element__like-counter');
         this._likeButton = this._card.querySelector('.element__like');
+        this._deleteButton = this._card.querySelector('.element__delete');
+        this._photoElement = this._card.querySelector('.element__photo');
         
         return cardElement;
     }
@@ -45,14 +47,14 @@ export class Card {
 
     _setEventListeners() { //метод вешает слушатели на созданную карточку
         this._likeButton.addEventListener('click', this._uniteListenerFunc);
-        this._card.querySelector('.element__delete').addEventListener('click', this._handleDelete);
-        this._card.querySelector('.element__photo').addEventListener('click', this._handleCardClick);
+        this._deleteButton.addEventListener('click', this._handleDelete);
+        this._photoElement.addEventListener('click', this._handleCardClick);
     }
 
     _removeEventListeners() {
         this._likeButton.removeEventListener('click', this._uniteListenerFunc);
-        this._card.querySelector('.element__delete').removeEventListener('click', this._handleDelete);
-        this._card.querySelector('.element__photo').removeEventListener('click', this._handleCardClick);
+        this._deleteButton.removeEventListener('click', this._handleDelete);
+        this._photoElement.removeEventListener('click', this._handleCardClick);
     }
 
     _likeCards() { //метод лайка карточек
@@ -66,7 +68,6 @@ export class Card {
     }
 
     _compareId(item) {
-        this._deleteButton = this._card.querySelector('.element__delete');
         if (item.owner._id === this._myId) {
             this._deleteButton.style.display = 'block'
         } else {
@@ -75,7 +76,13 @@ export class Card {
     }
 
     _uniteListenerFunc() {
-        this._likeCards();
-        this._handleCardLike(this._likeButton, this._like);
+        this._likeButton.disabled = true;
+        this._handleCardLike(this._likeButton, this._like)
+        .then(() => {
+            this._likeCards();
+        })
+        .finally(() => {
+            this._likeButton.disabled = false;
+        }); 
     }
 }

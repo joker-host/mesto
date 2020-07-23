@@ -7,6 +7,7 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithDelete } from '../components/PopupWithDelete.js';
 import { Api } from '../components/Api.js';
+import { headers } from '../components/constants.js';
 import '../pages/index.css';
 
 // ---------------------функция-----------------------
@@ -21,21 +22,21 @@ function callbacksCards(values, container) {
     },
         {
             handleCardLike: (likeButton, likeCounter) => {
-                if (likeButton.classList.contains('element__like_active')) { //Если у кнопки лайка есть активный селектор, то передает запрос удаления и уменьшаем количество лайков
-                    api.likeCards(_id)
+                if (!(likeButton.classList.contains('element__like_active'))) { //Если у кнопки лайка есть активный селектор, то передает запрос удаления и уменьшаем количество лайков
+                    return api.likeCards(_id)
                         .then(() => {
                             likeCounter.textContent++;
                         })
                         .catch(() => {
-                            console.error('error');
+                            return Promise.reject('Ошибка');
                         });
                 } else { // Если нет, то наоборот
-                    api.disLikeCards(_id)
+                    return api.disLikeCards(_id)
                         .then(() => {
                             likeCounter.textContent--;
                         })
                         .catch(() => {
-                            console.error('error');
+                            return Promise.reject('Ошибка');
                         });
                 }
             }
@@ -100,7 +101,7 @@ const profileAuthor = document.querySelector('.profile__author');
 const profileDescription = document.querySelector('.profile__description');
 const profileAvatar = document.querySelector('.profile__avatar');
 
-const api = new Api();
+const api = new Api(headers);
 
 api.getUserInfo()
     .then(res => {

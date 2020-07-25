@@ -27,17 +27,11 @@ function callbacksCards(values, container) {
                         .then(() => {
                             likeCounter.textContent++;
                         })
-                        .catch(() => {
-                            return Promise.reject('Ошибка');
-                        });
                 } else { // Если нет, то наоборот
                     return api.disLikeCards(_id)
                         .then(() => {
                             likeCounter.textContent--;
                         })
-                        .catch(() => {
-                            return Promise.reject('Ошибка');
-                        });
                 }
             }
         },

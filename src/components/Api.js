@@ -16,9 +16,6 @@ export class Api {
                 return Promise.reject(`Ошибка: ${result.status}`);
             }
         })
-        .catch(err => {
-            console.error(err);
-        })
     }
 
     getUserInfo() {
@@ -32,9 +29,6 @@ export class Api {
             } else {
                 return Promise.reject(`Ошибка: ${result.status}`);
             }
-        })
-        .catch(err => {
-            console.error(err);
         })
     }
 
@@ -54,9 +48,6 @@ export class Api {
                 return Promise.reject(`Ошибка: ${result.status}`);
             }
         })
-        .catch(err => {
-            console.error(err);
-        })
     }
 
     addCards(values) {
@@ -75,9 +66,6 @@ export class Api {
                 return Promise.reject(`Ошибка: ${result.status}`);
             }
         })
-        .catch(err => {
-            console.error(err);
-        })
     }
 
     likeCards(idCard) {
@@ -91,9 +79,6 @@ export class Api {
             } else {
                 return Promise.reject(`Ошибка: ${result.status}`);
             }
-        })
-        .catch(err => {
-            console.error(err);
         })
     }
 
@@ -109,9 +94,6 @@ export class Api {
                 return Promise.reject(`Ошибка: ${result.status}`);
             }
         })
-        .catch(err => {
-            console.error(err);
-        })
     }
 
     deleteCards(idCard) {
@@ -125,9 +107,6 @@ export class Api {
             } else {
                 return Promise.reject(`Ошибка: ${result.status}`);
             }
-        })
-        .catch(err => {
-            console.error(err);
         })
     }
 
@@ -145,9 +124,6 @@ export class Api {
             } else {
                 return Promise.reject(`Ошибка: ${result.status}`);
             }
-        })
-        .catch(err => {
-            console.error(err);
         })
     }
 }

@@ -81,6 +81,9 @@ export class Card {
         .then(() => {
             this._likeCards();
         })
+        .catch(() => {
+            console.log('Ошибка');
+        })
         .finally(() => {
             this._likeButton.disabled = false;
         }); 

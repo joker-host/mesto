@@ -9,7 +9,7 @@
 
 .profile__avatar-overlay:hover {
     background: rgba(0, 0, 0, 0.8);
-    background-image: url(/src/images/change.svg);
+    background-image: url(../../../images/change.svg);
     background-position: center center;
     background-repeat: no-repeat;
 }
